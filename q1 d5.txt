@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <ctype.h>
+
+int main()
+{
+    FILE *fp;
+    FILE *fp1;
+    char ch;
+    int i, j, count = 0;
+    int arr[26] = {0};
+
+    fp = fopen("data.txt", "r");
+    fp1 = fopen("statistics.txt", "w");
+
+    while ((ch = fgetc(fp)) != EOF)
+    {
+        if (isalpha(ch))
+        {
+            ch = toupper(ch);
+            arr[ch - 'A']++;
+        }
+    }
+
+    for (i = 0; i < 26; i++)
+    {
+        fprintf(fp1, "%c : %d\n", i + 'A', arr[i]);
+    }
+
+    fclose(fp);
+    fclose(fp1);
+
+    return 0;
+}
